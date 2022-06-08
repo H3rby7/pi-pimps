@@ -1,0 +1,12 @@
+---
+# *** https://rancher.com/docs/k3s/latest/en/installation/install-options/server-config/
+
+
+# >>>> Default local storage path for local provisioner storage class
+# default-local-storage-path: ???
+
+# >>>> Do not deploy packaged components and delete any deployed components (valid items: coredns, servicelb, traefik, local-storage, metrics-server)
+disable: "servicelb"
+
+# >>>> Disable k3s default cloud controller manager
+disable-cloud-controller: true

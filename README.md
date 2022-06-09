@@ -2,6 +2,13 @@
 
 (just keeping track of) Changes to pi:
 
+# Content
+
+* [Changes](#changes)
+* [Deployed Platform Services](#platform-services)
+
+# Changes
+
 1. added authorized_keys
 2. added pi-hole (https://github.com/pi-hole/pi-hole)
 3. `sudo apt-get install vim` (see https://askubuntu.com/questions/293407/ubuntu-terminal-is-not-working-properly-in-vi-editor)
@@ -39,3 +46,14 @@ https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for
     curl -sfL https://get.k3s.io | sh -
 
 After installation check with `sudo kubectl version`.
+
+# Platform Services
+
+## Traefik
+
+Description | Port | Protect from Internet Traffic?
+--- | --- | ---
+HTTP to HTTPS redirect | [http://raspberrypi:30080](30080) | no
+Traefik Ingress Routing | [http://raspberrypi:30443](30443) | no
+Traefik Dashboard | [http://raspberrypi:30900](30900) | Definitely YES!
+

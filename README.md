@@ -53,7 +53,7 @@ After installation check with `sudo kubectl version`.
 
 Description | Port | Protect from Internet Traffic?
 --- | --- | ---
-HTTP to HTTPS redirect | [http://raspberrypi:30080](30080) | no
-Traefik Ingress Routing | [http://raspberrypi:30443](30443) | no
-Traefik Dashboard | [http://raspberrypi:30900](30900) | Definitely YES!
+HTTP to HTTPS redirect | [30080](http://raspberrypi:30080) | no
+Traefik Ingress Routing | [30443](http://raspberrypi:30443) | no
+Traefik Dashboard | [30900](http://raspberrypi:30900) | Definitely YES!
 

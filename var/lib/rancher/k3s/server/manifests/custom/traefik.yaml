@@ -38,6 +38,12 @@ spec:
       # WEBSECURE (HTTPS)
       websecure:
         nodePort: 30443
+      # Traefik Management (DO NOT EXPOSE PUBLICLY! - In this case a firewall blocks access to :9000 outside my local network)
+      traefik:
+        nodePort: 30900
+        # AGAIN: NOT IN PROD!
+        expose: true
+        
         
     # Traefik Dashboard not exposed via ingressRoute
     ingressRoute:

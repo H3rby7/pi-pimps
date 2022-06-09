@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   repo: https://charts.jetstack.io
-  chart: jetstack/cert-manager
+  chart: cert-manager
   version: 1.8.0
   targetNamespace: cert-manager
   valuesContent: |-

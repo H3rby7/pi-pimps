@@ -16,6 +16,7 @@
 5. Added https://wiki.debian.org/UnattendedUpgrades
     1. configured default
 6. install K3s(#k3s)
+7. configure 'private' manners (API keys etc.)
 
 ## K3S 
 
@@ -49,6 +50,18 @@ https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for
     curl -sfL https://get.k3s.io | sh -
 
 After installation check with `sudo kubectl version`.
+
+## Let's Encrypt for TLS
+
+Copy the templates
+
+    cp -r templates/* private/
+    
+And fill in your own data/keys/etc.
+
+Create necessary secrets:
+    
+    kubectl -ncert-manager create secret generic issuer-account-key --from-literal=tls.key=YOURTLSKEY
 
 # Platform Services
 

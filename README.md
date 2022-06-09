@@ -52,10 +52,20 @@ After installation check with `sudo kubectl version`.
 
 ## Port Mappings
 
-Traefik as our main entrance point is listening on non-standard ports (Kubernetes Node Ports). To allow incoming traffic to use port '80' and '443' we can set up rules in IPTABLES as follows:
+Traefik as our main entrance point is listening on non-standard ports (Kubernetes Node Ports). 
+To allow incoming traffic to use port '80' and '443' we need to make some changes.
 
-    iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 30080
-    iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j REDIRECT --to-port 30443
+Allow/Enable IPV4 Forwarding by `sudo vi /etc/sysctl.conf` and un-commenting the line `net.ipv4.ip_forward=1`.
+Then apply the new config `sudo sysctl --system`.
+
+Set up rules in IPTABLES as follows:
+
+    sudo iptables -A FORWARD -i wlan0 -p tcp --syn --dport 80 -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
+
+Port-Redirection:
+
+    sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 30080
+    sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j REDIRECT --to-port 30443
     
 to remove these rules again, first find their rule-index (the displayed index starts with '1', not '0'!)
 

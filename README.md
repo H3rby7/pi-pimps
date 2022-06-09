@@ -58,22 +58,17 @@ To allow incoming traffic to use port '80' and '443' we need to make some change
 Allow/Enable IPV4 Forwarding by `sudo vi /etc/sysctl.conf` and un-commenting the line `net.ipv4.ip_forward=1`.
 Then apply the new config `sudo sysctl --system`.
 
-Set up rules in IPTABLES FORWARD chain as follows:
-
-    sudo iptables -A FORWARD -i wlan0 -p tcp --syn --dport 80 -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
-
 Set up rules in IPTABLES nat tables (-t nat) PREROUTING chain as follows:
 
     sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 30080
-    sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j REDIRECT --to-port 30443
     
 To remove these rules again, first find their rule-index (the displayed index starts with '1', not '0'!)
 
-    sudo iptables [-t nat] --list [FORWARD/PREROUTING]
+    sudo iptables -t nat --list PREROUTING
     
 then call, where 'X' is the index you need to delete (remember, it starts with '1', not '0'!)
 
-    sudo iptables [-t nat] --delete [FORWARD/PREROUTING] X
+    sudo iptables -t nat --delete PREROUTING X
 
 # Platform Services
 

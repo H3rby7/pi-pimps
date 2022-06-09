@@ -29,6 +29,9 @@ Standard Raspberry Pi OS installations do not start with cgroups enabled. K3S ne
     sudo mkdir -p /etc/rancher/k3s
     sudo cp ./pi-pimps/etc/rancher/k3s/config.yaml /etc/rancher/k3s/config.yaml
     sudo chmod 644 /etc/rancher/k3s/config.yaml
+    
+    sudo mkdir -p /var/lib/rancher/k3s/server/manifests
+    sudo cp -r ./pi-pimps/var/lib/rancher/k3s/server/manifests/custom /var/lib/rancher/k3s/server/manifests/custom
 
 https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for-installation-with-script
 

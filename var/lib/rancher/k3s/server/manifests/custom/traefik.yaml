@@ -33,11 +33,15 @@ spec:
     ports:
       # WEB (insecure HTTP), redirect to HTTPS
       web:
-        nodePort: 30080
         redirectTo: websecure
+        nodePort: 30080
+        # Not nice, but have yet to find a different way to expose on default ports on PI
+        hostPort: 80
       # WEBSECURE (HTTPS)
       websecure:
         nodePort: 30443
+        # Not nice, but have yet to find a different way to expose on default ports on PI
+        hostPort: 443
       # Traefik Management (DO NOT EXPOSE PUBLICLY! - In this case a firewall blocks access to :9000 outside my local network)
       traefik:
         nodePort: 30900

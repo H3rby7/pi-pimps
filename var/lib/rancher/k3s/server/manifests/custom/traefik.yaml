@@ -1,0 +1,57 @@
+# Configures K3S auto-deployed Traefik
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    # Any values valid in:
+    # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
+    
+    # Logging, COMMENT IN for debugging
+    # logs:
+    #   general:
+    #     level: DEBUG
+    
+    # Enable CRDs and ingressClasses
+    ingressClass:
+      enabled: true
+      isDefaultClass: true
+    providers:
+      kubernetesCRD:
+        enabled: true
+        allowCrossNamespace: true
+      kubernetesIngress:
+        enabled: true
+        publishedService:
+          enabled: false
+          
+    # Expose Traefik via NodePorts as we do not have a LB in place
+    service:
+      type: NodePort
+    ports:
+      # WEB (insecure HTTP), redirect to HTTPS
+      web:
+        nodePort: 30080
+        redirectTo: websecure
+      # WEBSECURE (HTTPS)
+      websecure:
+        nodePort: 30443
+        
+    # Traefik Dashboard not exposed via ingressRoute
+    ingressRoute:
+      dashboard:
+        enabled: false
+        
+    # Disable 'Pilot' Component as we do not want to use it
+    pilot:
+      enabled: false
+      dashboard: false
+      
+    # ARGs for traefik container process
+    globalArguments:
+      - "--global.sendanonymoususage=false"
+      - "--api.insecure=true"
+      - "--global.checknewversion=false"
+

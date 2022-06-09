@@ -57,3 +57,12 @@ HTTP to HTTPS redirect | [30080](http://raspberrypi:30080) | no
 Traefik Ingress Routing | [30443](http://raspberrypi:30443) | no
 Traefik Dashboard | [30900](http://raspberrypi:30900) | Definitely YES!
 
+# Cheatsheet
+
+Useful commands to interact with K3S
+
+Command | Purpose
+--- | ---
+`k3s-killall.sh` | Provided by K3S binaries, stops K3S service and the K3S Kubernetes Cluster
+`k3s-uninstall.sh` | Provided by K3S binaires, completely uninstall K3S from the system (also clears all `*/rancher/k3s/*` directories, so make sure to have backups of those files if necessary.
+`curl -sfL https://get.k3s.io | INSTALL_K3S_SKIP_DOWNLOAD=true INSTALL_K3S_FORCE_RESTART=true sh -` | force K3S (Service) Restart

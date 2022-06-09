@@ -6,7 +6,9 @@
 # default-local-storage-path: ???
 
 # >>>> Do not deploy packaged components and delete any deployed components (valid items: coredns, servicelb, traefik, local-storage, metrics-server)
-disable: "servicelb"
+disable: 
+  - servicelb
+  - metrics-server
 
 # >>>> Disable k3s default cloud controller manager
 disable-cloud-controller: true

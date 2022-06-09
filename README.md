@@ -50,26 +50,6 @@ https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for
 
 After installation check with `sudo kubectl version`.
 
-## Port Mappings
-
-Traefik as our main entrance point is listening on non-standard ports (Kubernetes Node Ports). 
-To allow incoming traffic to use port '80' and '443' we need to make some changes.
-
-Allow/Enable IPV4 Forwarding by `sudo vi /etc/sysctl.conf` and un-commenting the line `net.ipv4.ip_forward=1`.
-Then apply the new config `sudo sysctl --system`.
-
-Set up rules in IPTABLES nat tables (-t nat) PREROUTING chain as follows:
-
-    sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 30080
-    
-To remove these rules again, first find their rule-index (the displayed index starts with '1', not '0'!)
-
-    sudo iptables -t nat --list PREROUTING
-    
-then call, where 'X' is the index you need to delete (remember, it starts with '1', not '0'!)
-
-    sudo iptables -t nat --delete PREROUTING X
-
 # Platform Services
 
 ## Traefik

@@ -10,7 +10,7 @@ spec:
   targetNamespace: default
   valuesContent: |-
     service:
-      type: ClusterIp
+      type: ClusterIP
     ingress:
       enabled: true
       hostname: mydomain

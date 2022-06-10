@@ -30,7 +30,7 @@ metadata:
   annotations:
     # add an annotation indicating the issuer to use.
     cert-manager.io/cluster-issuer: letsencrypt-staging
-  name: testIngress
+  name: nginx-test-ingress
   namespace: default
 spec:
   rules:

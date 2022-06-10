@@ -16,7 +16,7 @@
 5. Added https://wiki.debian.org/UnattendedUpgrades
     1. configured default
 6. install [K3s](#k3s)
-7. (optional) if behind a FritzBox!, you may want to change the WebSrv Port to something else ([this might help](https://github.com/H3rby7/fb-docker)).
+7. (optional, if FritzBox) [I made these changes to my FritzBox](./FritzBox.md)
 8. configure 'private' manners (API keys etc.)
 
 ## K3S 

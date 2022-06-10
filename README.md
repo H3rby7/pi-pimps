@@ -15,7 +15,7 @@
 4. `sudo apt-get install vim` (see https://askubuntu.com/questions/293407/ubuntu-terminal-is-not-working-properly-in-vi-editor)
 5. Added https://wiki.debian.org/UnattendedUpgrades
     1. configured default
-6. install K3s(#k3s)
+6. install [K3s](#k3s)
 7. (optional) if behind a FritzBox!, you may want to change the WebSrv Port to something else ([this might help](https://github.com/H3rby7/fb-docker)).
 8. configure 'private' manners (API keys etc.)
 

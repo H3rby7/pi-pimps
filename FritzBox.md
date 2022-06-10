@@ -17,3 +17,9 @@ Following up is some things I have tried.
 4. I used https://github.com/H3rby7/fb-docker, a dockerized version of [fb tools](http://mengelke.de/.dg), to re-calculate the edited file's checksum
 5. I used the Web-UI to "restore settings from a backup" (my edited file). I chose 'restore All options'.
 6. I rebooted the box and the Web-UI was available under the other port.
+
+## IPv6 Port 443
+
+When running the DynDNS from FritzBox, apparently the IPV6 address will target the FritzBox directly. See [official AVM](https://avm.de/service/wissensdatenbank/dok/FRITZ-Box-7490/3525_Zugriff-auf-HTTPS-Server-im-Heimnetz-nicht-moglich/) statement.
+
+Might want to run DynDNS from inside K3S?

@@ -1,0 +1,25 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: nginx-test
+  namespace: default
+spec:
+  repo: https://charts.bitnami.com/bitnami
+  chart: nginx
+  version: 12.0.4
+  targetNamespace: default
+  valuesContent: |-
+    service:
+      type: ClusterIp
+    ingress:
+      enabled: true
+      hostname: mydomain
+      path: /test
+      tls: false
+    serverBlock: |-
+      server {
+        listen 0.0.0.0:8080;
+        location / {
+          return 200 "hello darling!";
+        }
+      }

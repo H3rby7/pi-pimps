@@ -23,3 +23,19 @@ Following up is some things I have tried.
 When running the DynDNS from FritzBox, apparently the IPV6 address will target the FritzBox directly. See [official AVM](https://avm.de/service/wissensdatenbank/dok/FRITZ-Box-7490/3525_Zugriff-auf-HTTPS-Server-im-Heimnetz-nicht-moglich/) statement.
 
 Might want to run DynDNS from inside K3S?
+
+# Cheatsheet
+
+Some commands to 'debug' dyndns, the ports, etc.
+
+Curl your dynamic DNS, follow redirects and no Certificate check
+
+    curl -vvv -L -k your-dyn-dns.???
+
+Curl your dynamic DNS, follow redirects and no Certificate check, enforce IPV4
+
+    curl -vv -L -k -4 your-dyn-dns.???
+    
+Curl your dynamic DNS, follow redirects and no Certificate check, enforce IPV4, check Port 443
+
+    curl -vv -L -k -4 your-dyn-dns.???:443

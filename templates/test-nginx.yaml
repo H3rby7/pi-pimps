@@ -9,13 +9,13 @@ spec:
   version: 12.0.4
   targetNamespace: default
   valuesContent: |-
+    image:
+      repository: nginx
+      tag: 1.22
     service:
       type: ClusterIP
     ingress:
-      enabled: true
-      hostname: mydomain
-      path: /test
-      tls: false
+      enabled: false
     serverBlock: |-
       server {
         listen 0.0.0.0:8080;
@@ -23,3 +23,28 @@ spec:
           return 200 "hello darling!";
         }
       }
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # add an annotation indicating the issuer to use.
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+  name: testIngress
+  namespace: default
+spec:
+  rules:
+  - host: your-domain.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /test
+        backend:
+          service:
+            name: nginx-test
+            port:
+              number: 8080
+  tls: # < placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
+  - hosts:
+    - your-domain.com
+    secretName: nginx-test-cert # < cert-manager will store the created certificate in this secret.

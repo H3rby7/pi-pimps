@@ -55,27 +55,21 @@ After installation check with `sudo kubectl version`.
 
 ## DynDNS
 
-Running DynDNS on the Pi itself, to get IPV6 working properly. I chose to run [ddclient](https://github.com/ddclient/ddclient).
+Running DynDNS on the Pi itself, to get IPV6 working properly. I chose DuckDNS.
 
-I found the setup dialog in the installation to be confusing, however it is just an interface to create your config file at `/etc/ddclient/ddclient.conf`.
-You can still edit that file yourself later. Find an example config for your dynamic DNS provider in the [ddclient repo](https://github.com/ddclient/ddclient/blob/develop/ddclient.conf.in). 
+Created an own shell script at `~/duckdns/duck.sh` to run with crontab.
+Started with [DuckDNS Sample](https://www.duckdns.org/install.jsp?tab=linux-cron) and added IPV6 support.
 
-    sudo apt-get install libio-socket-inet6-perl && ddclient
+```sh
+ipv6=$(curl http://ip1.dynupdate6.no-ip.com/)
+echo url="https://www.duckdns.org/update?domains=mydomain&token=your-token-from-duck-dns&ipv6=${ipv6}&ip=" | curl -k -o ~/duckdns/duck.log -K -
+```
 
-*libio-socket-inet6-perl for IPV6 support*
+My crontab runs every 10 minutes (not 5), to not get banned by the IPV6 service.
 
-If you need to adjust your settings:
+    crontab -e
 
-    sudo vi /etc/ddclient/ddclient.conf
-
-Example entry for DuckDns provider:
-
-    ## Duckdns (http://www.duckdns.org/)
-    ##
-    #
-    # protocol=duckdns, \
-    # password=my-auto-generated-password \
-    # hostwithoutduckdnsorg
+    */10 * * * * ~/duckdns/duck.sh >/dev/null 2>&1
 
 ## Let's Encrypt for TLS
 

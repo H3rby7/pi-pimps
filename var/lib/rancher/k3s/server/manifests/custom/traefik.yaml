@@ -33,9 +33,7 @@ spec:
     ports:
       # WEB (insecure HTTP), redirect to HTTPS
       web:
-        redirections: 
-          entrypoint:
-            to: 30443
+        redirectTo: websecure
         nodePort: 30080
       # WEBSECURE (HTTPS)
       websecure:

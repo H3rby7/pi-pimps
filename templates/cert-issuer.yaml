@@ -19,10 +19,6 @@ spec:
     # Add a single challenge solver, HTTP01 using nginx
     solvers:
     # TODO: continue here? how to get the challenge done...
-    - dns01:
-        webhook:
-          groupName: $WEBHOOK_GROUP_NAME
-          solverName: duckdns
-          config:
-            ...
-            <webhook-specific-configuration>
+    - http01:
+        ingress:
+          serviceType: ClusterIP

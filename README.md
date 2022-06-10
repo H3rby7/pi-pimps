@@ -5,6 +5,7 @@
 # Content
 
 * [Changes](#changes)
+* [DynDNS](#dyndns)
 * [Deployed Platform Services](#platform-services)
 
 # Changes
@@ -51,6 +52,28 @@ https://rancher.com/docs/k3s/latest/en/installation/install-options/#options-for
     curl -sfL https://get.k3s.io | sh -
 
 After installation check with `sudo kubectl version`.
+
+## DynDNS
+
+Running DynDNS on the Pi itself, to get IPV6 working properly. I chose to run [ddclient](https://github.com/ddclient/ddclient).
+
+I found the setup dialog in the installation to be confusing, however it is just an interface to create your config file at `/etc/ddclient/ddclient.conf`.
+You can still edit that file yourself later. Find an example config for your dynamic DNS provider in the [ddclient repo](https://github.com/ddclient/ddclient/blob/develop/ddclient.conf.in). 
+
+    sudo apt-get install ddclient
+
+If you need to adjust your settings:
+
+    sudo vi /etc/ddclient/ddclient.conf
+
+Example entry for DuckDns provider:
+
+    ## Duckdns (http://www.duckdns.org/)
+    ##
+    #
+    # protocol=duckdns, \
+    # password=my-auto-generated-password \
+    # hostwithoutduckdnsorg
 
 ## Let's Encrypt for TLS
 

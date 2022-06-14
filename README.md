@@ -11,7 +11,8 @@
 # Changes
 
 1. added authorized_keys
-2. added pi-hole (https://github.com/pi-hole/pi-hole)
+2. [Improve SSH security](#ssh)
+3. added pi-hole (https://github.com/pi-hole/pi-hole)
     1. `sudo vi /etc/lighttpd/external.conf` and add: `server.port := 8093` and reboot lighthttpd service `sudo /etc/init.d/lighttpd restart` (so pi-hole admin interface will run on PORT 8093 now)
 4. `sudo apt-get install vim` (see https://askubuntu.com/questions/293407/ubuntu-terminal-is-not-working-properly-in-vi-editor)
 5. Added https://wiki.debian.org/UnattendedUpgrades
@@ -19,6 +20,20 @@
 6. install [K3s](#k3s)
 7. (optional, if FritzBox) [I made these changes to my FritzBox](./FritzBox.md)
 8. configure 'private' manners (API keys etc.)
+
+## SSH
+
+Add/Uncomment in `/etc/ssh/sshd_config`.
+
+    Protocol 2 #switch to SSH version 2
+    Port XXX #change to different port to reduce noise
+    PasswordAuthentication no #force use of keys instead of passwords
+    PermitEmtpyPasswords no #no empty passwords allowed
+    X11Forwarding no #no GUI display
+    PermitRootLogin prohibit-password #root can't log in with password (also needs to use keys)
+    
+restart ssh demon `sudo systemctl restart sshd`
+    
 
 ## K3S 
 

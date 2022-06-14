@@ -23,6 +23,18 @@ spec:
           return 200 "hello darling!";
         }
       }
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: stripprefix-test
+  namespace: default
+spec:
+  stripPrefix:
+    prefixes:
+      - /test
+
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -30,6 +42,7 @@ metadata:
   annotations:
     # add an annotation indicating the issuer to use.
     cert-manager.io/cluster-issuer: letsencrypt-staging
+    traefik.ingress.kubernetes.io/router.middlewares: stripprefix-test@kubernetescrd
   name: nginx-test-ingress
   namespace: default
 spec:

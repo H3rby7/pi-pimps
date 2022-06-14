@@ -12,6 +12,8 @@ spec:
     image:
       repository: nginx
       tag: 1.22
+    containerPorts:
+      http: 80
     service:
       ports:
         http: 80
@@ -44,7 +46,7 @@ metadata:
   annotations:
     # add an annotation indicating the issuer to use.
     cert-manager.io/cluster-issuer: letsencrypt-staging
-    traefik.ingress.kubernetes.io/router.middlewares: stripprefix-test@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: default-stripprefix-test@kubernetescrd
   name: nginx-test-ingress
   namespace: default
 spec:

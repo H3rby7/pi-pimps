@@ -13,12 +13,14 @@ spec:
       repository: nginx
       tag: 1.22
     service:
+      ports:
+        http: 80
       type: ClusterIP
     ingress:
       enabled: false
     serverBlock: |-
       server {
-        listen 0.0.0.0:8080;
+        listen 0.0.0.0:80;
         location / {
           return 200 "hello darling!";
         }
@@ -56,7 +58,7 @@ spec:
           service:
             name: nginx-test
             port:
-              number: 8080
+              number: 80
   tls: # < placing a host in the TLS config will determine what ends up in the cert's subjectAltNames
   - hosts:
     - your-domain.com

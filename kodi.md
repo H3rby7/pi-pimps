@@ -6,7 +6,7 @@ Log info on how to get it work
 
 For Netflix and Amazon Streams.
 
-1. `apt-get install libwidevinecdm0`
+1. `sudo apt-get install libwidevinecdm0=4.10.2252.0-1`
 2. `sudo cp  /opt/WidevineCdm/_platform_specific/linux_arm/libwidevinecdm.so ~/.kodi/cdm/libwidevinecdm.so`
 3. `chown pi:pi libwidevinecdm.so`
 

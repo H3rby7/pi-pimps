@@ -187,3 +187,10 @@ Update hosts file
     <XXX.XXX.XXX.XXX>  pi.hole <yourhostname>
 
 Pi-Hole should now be running
+
+### Make PiHole your DNS
+
+https://docs.pi-hole.net/routers/asus/
+
+    # Shows IPV4 and IPV6 address
+    iwctl station wlan0 show

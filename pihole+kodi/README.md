@@ -92,6 +92,8 @@ TODO: however not recommended for pacman
 
 ## PiHole
 
+    journalctl -u pihole-FTL
+
 One-Step automated install will not work. -> https://wiki.archlinux.org/title/Pi-hole
 
 A Arch User Repository (AUR) version is available. Generic AUR install guide -> https://wiki.archlinux.org/title/Arch_User_Repository
@@ -194,3 +196,38 @@ https://docs.pi-hole.net/routers/asus/
 
     # Shows IPV4 and IPV6 address
     iwctl station wlan0 show
+
+## KODI
+
+https://wiki.archlinux.org/title/Kodi
+
+    journalctl -u kodi.service
+
+### KODI installation
+
+    sudo pacman -S kodi
+      1) kodi-rpi  2) kodi-rpi-git -> 1
+
+    sudo vim /etc/systemd/system/kodi.service
+
+```plain
+[Unit]
+Description=Kodi standalone service
+After=network.target
+
+[Service]
+User=kodi
+Group=kodi
+Type=simple
+ExecStart=/usr/bin/kodi-standalone
+Restart=always
+RestartSec=5
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target
+```
+
+    sudo systemctl daemon-reload
+    sudo systemctl enable kodi.service

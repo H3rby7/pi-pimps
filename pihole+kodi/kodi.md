@@ -1,5 +1,7 @@
 # Kodi
 
+https://kodi.wiki/view/Special_protocol
+
 ## Web Interface
 
 * Enable Web Interface using the GUI (Settings > Services)
@@ -19,15 +21,13 @@ Then via kodinerds repository install 'Sandmann79s Repository'
 
 ### Amazon VOD via inputstream
 
-    https://aur.archlinux.org/packages/kodi-nexus-addon-inputstream-adaptive-git
-    makepkg -sr
-      1) kodi-rpi-dev  2) kodi-rpi-git-dev -> 1
-    sudo pacman -U kodi-nexus-addon-inputstream-adaptive-git-XX.XXX-X-aarch64.pkg.tar.zst
+    sudo pamac build kodi-nexus-addon-inputstream-adaptive-git
     sudo pacman -S nspr
 
-Launch Amazon VOD and try launch a video, accept to install Widevine
+My Addons > InputStream Helper > Settings > (Re)install Widevine
 
 (Did not work - threw errors)
+(2nd try Did not work - jsut crashed)
 
 Rollback
 
@@ -55,6 +55,51 @@ Try getting via ARCH extra repos
       1:  kodi-rpi-dev      20.5-3                   extra
       2:  kodi-rpi-git-dev  21.x.65444.c3011d70d0-1  extra
       -> 1
+
+Try external libwidevinecdm.so
+
+(https://github.com/emilsvennesson/script.module.inputstreamhelper/issues/530#issuecomment-1467793760)
+
+    curl -o libwidevinecdm.so https://slyguy.uk/.decryptmodules/widevine/4.10.2557.0-linux-arm64.so
+    chmod 744 libwidevinecdm.so
+    sudo mv /var/lib/kodi/.kodi/cdm/libwidevinecdm.so /var/lib/kodi/.kodi/cdm/libwidevinecdm.so.old
+    sudo cp libwidevinecdm.so /var/lib/kodi/.kodi/cdm/
+    sudo chown kodi:kodi /var/lib/kodi/.kodi/cdm/libwidevinecdm.so
+
+Rollback
+
+    sudo rm /var/lib/kodi/.kodi/cdm/libwidevinecdm.so
+    sudo mv /var/lib/kodi/.kodi/cdm/libwidevinecdm.so.old /var/lib/kodi/.kodi/cdm/libwidevinecdm.so
+
+Via [Chromium Widevine](https://aur.archlinux.org/chromium-widevine.git)
+
+    git clone https://aur.archlinux.org/chromium-widevine.git
+    makepkg -sr
+
+(not for aarch64)
+
+Via [Widewine installer](https://github.com/AsahiLinux/widevine-installer)
+
+Requires glibc >= 2.36
+
+https://archlinuxarm.org/packages/aarch64/glibc
+
+    # higher version of GLIBC
+    curl -o glibc-X.XX-X-aarch64.pkg.tar.xz http://mirror.archlinuxarm.org/aarch64/core/glibc-X.XX-X-aarch64.pkg.tar.xz
+    sudo pacman -U glibc-X.XX-X-aarch64.pkg.tar.xz
+
+    # DEP of widevine installer
+    sudo pacman -S squashfs-tools
+
+
+    git clone https://github.com/AsahiLinux/widevine-installer
+    cd widevine-installer
+    sudo ./widevine-installer
+     ... version 4.10.2662.3
+
+InputStream Adaptive Change DRM Widevine Decrypter Path from `special://home/cdm` (old) to `/var/lib/widevine` (new).
+
+    sudo reboot
 
 ### Amazon VOD via browser
 

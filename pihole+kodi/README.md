@@ -212,7 +212,7 @@ https://wiki.archlinux.org/title/Kodi
     sudo pacman -S kodi-rpi
     sudo vim /etc/systemd/system/kodi.service
 
-Major Version: Kodi-Nexus
+Major Version: Kodi-Nexus 20.5
 
 ```plain
 [Unit]

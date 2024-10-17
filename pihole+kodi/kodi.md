@@ -54,3 +54,20 @@ https://archlinuxarm.org/packages/aarch64/glibc
 InputStream Adaptive Change DRM Widevine Decrypter Path from `special://home/cdm` (old) to `/var/lib/widevine` (new).
 
     sudo reboot
+
+## Netflix
+
+https://github.com/CastagnaIT/plugin.video.netflix/wiki/How-install-the-addon
+
+Add repository
+
+    curl -L -o repository.castagnait-2.0.1.zip https://github.com/castagnait/repository.castagnait/raw/kodi/repository.castagnait-2.0.1.zip
+    sudo mv repository.castagnait-2.0.1.zip /var/lib/kodi/
+
+Using the GUI Add-on browser, 'install from zip file' to install the CastagnaIT Repository.
+
+Using GUI Add-on browser, 'install from repository' select CastagnaIT Repository and install Netflix
+
+https://github.com/CastagnaIT/plugin.video.netflix/wiki/Login-with-Authentication-key
+
+Did encounter a playback error, that also affected Prime, after a restart everything turned out fine.

@@ -105,3 +105,42 @@ New Source > Add new Network connection
     sudo systemctl stop kodi.service
     sudo vim /var/lib/kodi/.kodi/userdata/addon_data/plugin.video.youtube/api_keys.json
     sudo systemctl start kodi.service
+
+## PVR
+
+https://github.com/kodi-pvr/pvr.iptvsimple/tree/Matrix
+
+Build ourselves, as its not showing up in kodi addons
+
+    pamac build kodi-addon-pvr-iptvsimple
+
+restart kodi to enable add-on
+
+### PVR TV channels
+
+Add a m3u list. For example:
+
+    https://raw.githubusercontent.com/jnk22/kodinerds-iptv/master/iptv/clean/clean_tv.m3u
+
+Takes some time, maybe a restart to apply.
+
+Install Takealug EPG Grabber form Kodinerds > Services
+
+    sudo mkdir /var/lib/kodi/epg-storage
+
+Takealug EPG Grabber go to 'Glocal Settings' and select the newly created DIR as storage path
+
+Then go to 'Misc' and do a manual EPG run.
+
+    sudo ls -al /var/lib/kodi/epg-storage/
+
+should now display guide.xml
+
+### PVR Radio channels
+
+m3u lists must use this tag : radio="true"
+
+e.g.
+
+    #EXTINF:-1,tvg-logo="http://path.to/logo.png" group-title="some guop" radio="true",Radio Name
+    http://path.to.your/radiostation

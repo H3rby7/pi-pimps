@@ -102,6 +102,8 @@ A Arch User Repository (AUR) version is available. Generic AUR install guide -> 
 
 Install Pi-Hole FTL (AUR dependency of Pi-Hole Server)
 
+(possibly easier with pamac)
+
     cd ~
     git clone https://aur.archlinux.org/pi-hole-ftl.git
     cd pi-hole-ftl
@@ -132,6 +134,8 @@ Install Pi-Hole FTL (AUR dependency of Pi-Hole Server)
 
 
 Install Pi-Hole Server
+
+(possibly easier with pamac)
 
     cd ~
     git clone https://aur.archlinux.org/pi-hole-server.git
@@ -205,10 +209,10 @@ https://wiki.archlinux.org/title/Kodi
 
 ### KODI installation
 
-    sudo pacman -S kodi
-      1) kodi-rpi  2) kodi-rpi-git -> 1
-
+    sudo pacman -S kodi-rpi
     sudo vim /etc/systemd/system/kodi.service
+
+Major Version: Kodi-Nexus
 
 ```plain
 [Unit]

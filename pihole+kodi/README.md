@@ -206,6 +206,10 @@ https://docs.pi-hole.net/routers/asus/
 https://wiki.archlinux.org/title/Kodi
 
     journalctl -u kodi.service
+    # LOGs of current run
+    sudo tail -f /var/lib/kodi/.kodi/temp/kodi.log
+    # LOGs of last run
+    sudo less /var/lib/kodi/.kodi/temp/kodi.old.log
 
 ### KODI installation
 

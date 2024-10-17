@@ -71,3 +71,37 @@ Using GUI Add-on browser, 'install from repository' select CastagnaIT Repository
 https://github.com/CastagnaIT/plugin.video.netflix/wiki/Login-with-Authentication-key
 
 Did encounter a playback error, that also affected Prime, after a restart everything turned out fine.
+
+## Network files
+
+(https://www.kodinerds.net/thread/74559-fritz-nas-und-smb/)
+
+Settings > Media > Library > Videos/Music
+
+Add X
+
+New Source > Add new Network connection
+
+    Type: SMB
+    Server Name: 192.xxx.xxx.1
+    user with READ priviledges
+
+## Youtube
+
+[Following this 'Guide'](https://github.com/anxdpanic/plugin.video.youtube/wiki/Personal-API-Keys)
+
+[Create keys here](https://console.cloud.google.com/apis/credentials/wizard?api=youtube.googleapis.com)
+
+    Youtube Data API v3
+    Public Data
+    restrict key to 'Youtube Data API v3'
+
+    Consent Screen
+    View and Download Videos
+
+    Youtube Data API v3
+    Private Data
+
+    sudo systemctl stop kodi.service
+    sudo vim /var/lib/kodi/.kodi/userdata/addon_data/plugin.video.youtube/api_keys.json
+    sudo systemctl start kodi.service

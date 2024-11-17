@@ -62,9 +62,11 @@ just to be sure:
 
 ## AVAHI
 
-for non-windows
+https://wiki.archlinux.org/title/Avahi
+
+for non-windows and LLMNR
 
     # other devices
-    sudo pacman -S avahi
+    sudo pacman -S avahi nss-mdns
     systemctl enable avahi-daemon.service
     systemctl start avahi-daemon.service

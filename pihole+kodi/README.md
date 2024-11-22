@@ -146,6 +146,8 @@ Install Pi-Hole Server
     makepkg
     # Either install them manually or re-run with -sr
     makepkg -sr
+    # Install the package
+    sudo pacman -U pi-hole-server-X.XX.X-X-any.pkg.tar.zst
 
 ### PiHole Configuration
 
@@ -204,6 +206,8 @@ https://docs.pi-hole.net/routers/asus/
 ## KODI
 
 https://wiki.archlinux.org/title/Kodi
+
+https://kodi.wiki/view/HOW-TO:Install_Kodi_on_Raspberry_Pi
 
     journalctl -u kodi.service
     # LOGs of current run

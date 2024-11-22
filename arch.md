@@ -1,3 +1,31 @@
+# Cheatsheet
+
+# Packages
+
+## pacman
+
+    # updates
+    pacman -Syu
+
+    # search
+    pacman -Qa searchterm
+
+    # install
+    pacman -S your-pkg
+
+    # uninstall / remove
+    pacman -Rs your-pkg
+
+## pamac
+
+For AUR (user repository)
+
+    # search
+    pamac search -a searchterm
+
+    # install / build
+    pamac build your-pkg
+
 # Net Utils
 
     netstat --> ss

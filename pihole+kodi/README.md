@@ -217,6 +217,8 @@ https://kodi.wiki/view/HOW-TO:Install_Kodi_on_Raspberry_Pi
 
 ### KODI installation
 
+https://manjaristas.org/branch_compare?q=kodi-rpi&arm=on
+
     sudo pacman -S kodi-rpi
     sudo vim /etc/systemd/system/kodi.service
 

@@ -9,6 +9,8 @@
 
 ## Approach: PROXY ARP WITH SUBNETTING
 
+Result: could not even ping the default gateway, although IP addrs and subnets were correct.
+
 Source: https://raspberrypi.stackexchange.com/questions/88954/workaround-for-a-wifi-bridge-on-a-raspberry-pi-with-proxy-arp/88955#88955
 
 ### Systemd networkd files

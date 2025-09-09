@@ -7,8 +7,12 @@
     # updates
     pacman -Syu
 
-    # search
-    pacman -Qa searchterm
+    # search locally
+    pacman -Q searchterm
+    pacman -Qi searchterm
+
+    # search "remote"
+    pacman -F searchterm
 
     # install
     pacman -S your-pkg

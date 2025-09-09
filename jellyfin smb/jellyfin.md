@@ -13,3 +13,12 @@
 Visit Web-UI for install wizard.
 
     http://<PI IP ADDR>:8096/web
+
+## Updating
+
+    pamac build jellyfin-server-bin
+    systemctl restart jellyfin
+
+# Read also
+
+* https://wiki.archlinux.org/title/Jellyfin

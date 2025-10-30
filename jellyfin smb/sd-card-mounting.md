@@ -87,12 +87,12 @@ exit 1
 
 ```csharp
 [Unit]
-Description=Automount SD card (/dev/sda1) for 'your-user' on boot
+Description=Automount SD card for 'your-user' on boot
 After=local-fs.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/mount-sda-jellyfin
+ExecStart=/usr/bin/mount-sd-card-jellyfin
 RemainAfterExit=true
 
 [Install]
@@ -110,7 +110,7 @@ https://www.freedesktop.org/software/systemd/man/latest/systemd.mount.html
 
 # Some useful commands
 
-    sudo fsck -Va /dev/sda1
+    sudo fsck -Va /dev/sd??
     sudo fdisk -l
     dmesg
     lsblk -f

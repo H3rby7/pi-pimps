@@ -23,7 +23,9 @@ https://borgbackup.readthedocs.io/en/stable/quickstart.html
 sudo borg init -e none /mount/path/of/my-ext-drive/backup-dir
 
 # Use repository for the backup
-sudo borg create --progress /mount/path/of/my-ext-drive/backup-dir::Initial /run/media/jellyfin/my-device
+# Using --files-cache=mtime,size to check for modification ans dize changes only.
+# By default borg checks more properties, but that does not work well with a mounted SD card.
+sudo borg create --progress --list --stats --filter=AME --files-cache=mtime,size /mount/path/of/my-ext-drive/backup-dir::Initial /run/media/jellyfin/my-device
 ```
 
 ## Kopia

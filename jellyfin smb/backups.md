@@ -14,7 +14,16 @@ https://borgbackup.readthedocs.io/en/stable/quickstart.html
 
 ### Installation
 
+With python dependenices:
+
     sudo pacman -S borg
+
+Or standalone binary from https://borg.bauerj.eu/
+
+    curl -L -o /usr/bin/borg https://borg.bauerj.eu/bin/borg-1.4.1-arm64
+    chmod +x /usr/bin/borg
+    # or for every user:
+    chmod a+x /usr/bin/borg
 
 ### Backing Up to ext drive
 

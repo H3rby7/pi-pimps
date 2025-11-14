@@ -20,6 +20,8 @@ Base: Manjaro ARM minimal
 
 ## Distro Installation
 
+*HINT: Development is very slow on this distro and the Kodi package is outdated quickly - As plugins support later kodi versions they run out of date rather quickly and breaking changes, when e.g. Netflix changes its API may render it useless for a few weeks...*
+
 Use [Manjaro-ARM-minimal-rpi4](https://github.com/manjaro-arm/rpi4-images/releases/)
 with RaspberryPi imager (would loved to use arch, however installation of arch onto SD card is a heckmeck when all you have is a windows desktop)
 
@@ -97,3 +99,21 @@ Check if you can login from your machine via ssh
 ### Automatic updates
 
 TODO: however not recommended for pacman
+
+## Arch4Edu pacman repository
+
+https://github.com/arch4edu/arch4edu/wiki/Add-arch4edu-to-your-Archlinux
+
+Create file `/etc/pacman.d/arch4edumirrorlist` with a [list of mirrors](https://github.com/arch4edu/mirrorlist/blob/master/mirrorlist.arch4edu)
+
+Import keys to pacman as stated in the instructions.
+
+Edit `/etc/pacman.conf` and add
+
+    [arch4edu]
+    Include = /etc/pacman.d/arch4edumirrorlist
+
+Update arch4edu DB:
+
+    pacman -Sy
+

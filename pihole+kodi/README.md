@@ -12,7 +12,7 @@ A Arch User Repository (AUR) version is available. Generic AUR install guide -> 
 
 Install Pi-Hole FTL (AUR dependency of Pi-Hole Server)
 
-(possibly easier with pamac)
+(possibly easier with pamac, especially when having added the [arch4edu repo](../README.md#arch4edu-pacman-repository)
 
     cd ~
     git clone https://aur.archlinux.org/pi-hole-ftl.git
@@ -155,3 +155,21 @@ WantedBy=multi-user.target
 
     sudo systemctl daemon-reload
     sudo systemctl enable kodi.service
+
+## Switch to testing branch
+
+    # This did not fully work:
+    sudo pacman -U https://ftp.tu-chemnitz.de/pub/linux/manjaro/arm-testing/extra/aarch64/kodi-rpi-21.2-15-aarch64.pkg.tar.zst
+
+    # Switched to pacman 'testing' branch:
+    sudo pacman -S kodi-rpi libcdio libdisplay-info libnfs libxml2 libplacebo
+
+    # Stuck at 'libfmt.so.11'
+    # Replace libcec-rpi with libcec
+    sudo pacman -S libcec
+
+## Switch back to stable branch
+
+Downgrade all packages back to version of `stable`:
+
+    sudo pacman -Syyuu

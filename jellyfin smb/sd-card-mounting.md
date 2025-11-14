@@ -30,13 +30,15 @@ USER_UID | `cat /etc/passwd` to find the corresponding user ID
 SD_READER_MODEL | `lsblk -S` to find the reader, take the 'Model' column entry
 DEVICE_UUID | `lsblk -f` to find the card, take the 'UUID' column entry
 
+File: `/usr/bin/mount-sd-card-jellyfin`
+
 ```bash
 #!/bin/bash
 
 USER="your-user"
 USER_UID="1001"
 GROUP_UID="$USER_UID"
-FMASK="133" # Files will be -rw-r--r--
+UMASK="002" # default permissions for user and group, but remove write for 'everyone'
 FS_TYPE="exfat"
 SD_READER_MODEL="ZZZZ-ZZZZ"
 DEVICE_UUID="XXXX-XXXX"
@@ -72,7 +74,7 @@ for i in {1..10}; do
 
     # Mount the card
     echo "SD Card $DEVICE found, attempting to mount..."
-    if mount -t $FS_TYPE -o uid=$USER_UID,gid=$GROUP_UID,fmask=$FMASK "$DEVICE" "$MOUNT_POINT"; then
+    if mount -t $FS_TYPE -o uid=$USER_UID,gid=$GROUP_UID,umask=$UMASK "$DEVICE" "$MOUNT_POINT"; then
         echo "SD Card $DEVICE successfully mounted. Exiting"
         exit 0
     fi

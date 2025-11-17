@@ -155,21 +155,11 @@ WantedBy=multi-user.target
 
     sudo systemctl daemon-reload
     sudo systemctl enable kodi.service
+    sudo systemctl start kodi.service
 
 ## Switch to testing branch
 
-    # This did not fully work:
-    sudo pacman -U https://ftp.tu-chemnitz.de/pub/linux/manjaro/arm-testing/extra/aarch64/kodi-rpi-21.2-15-aarch64.pkg.tar.zst
+NEW:
 
-    # Switched to pacman 'testing' branch:
-    sudo pacman -S kodi-rpi libcdio libdisplay-info libnfs libxml2 libplacebo
-
-    # Stuck at 'libfmt.so.11'
-    # Replace libcec-rpi with libcec
+    # kodi rpi 21.2-15 is installed with branch switch and update.
     sudo pacman -S libcec
-
-## Switch back to stable branch
-
-Downgrade all packages back to version of `stable`:
-
-    sudo pacman -Syyuu

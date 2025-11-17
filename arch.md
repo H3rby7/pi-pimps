@@ -30,8 +30,12 @@
     # May need to update/install python modules, so pacman-mirrors works again...
     sudo pacman -S python pacman-mirrors openssl python-requests python-urllib3 python-idna
 
+    # Switch back to stable branch
     # Fully reset mirror list
     pacman-mirrors --country all --api --protocols all --set-branch stable
+    # Downgrade all packages back to version of `stable`:
+    sudo pacman -Syyuu
+
 
     # Manual intervention: https://archlinux.org/news/linux-firmware-2025061312fe085f-5-upgrade-requires-manual-intervention/
     pacman -Rdd linux-firmware

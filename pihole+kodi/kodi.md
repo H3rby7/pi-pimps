@@ -19,9 +19,58 @@ Then via kodinerds repository install 'Sandmann79s Repository'
 
     Via Sandmann79s Repository
 
-### Amazon VOD inputstream
+### Inputstream Adaptive
 
-Build myself -> https://github.com/xbmc/inputstream.adaptive/wiki/How-to-build
+While some solutions are presented below, for me, this combination worked:
+
+* [Downloaded Inputstream.Adaptive](#download-inputstream-adaptive)
+* [Downloaded Inputstream.Helper](https://github.com/emilsvennesson/script.module.inputstreamhelper/releases/tag/v0.8.4) - not sure if necessary, because I had to disable it over it's settings in kodi GUI
+* [Widevine Installer](#widevine-installer)
+
+#### Build Inputstream Adaptive
+
+##### Build from Omega Sources:
+
+Following https://github.com/xbmc/inputstream.adaptive/wiki/How-to-build
+
+    # Create a working dir
+    mkdir a-dir && cd a-dir
+
+    # Pre-requisite, a cmake < 4
+    curl -L -o cmake-3.31.9-linux-aarch64.sh https://github.com/Kitware/CMake/releases/download/v3.31.9/cmake-3.31.9-linux-aarch64.sh
+    chmod +x cmake-3.31.9-linux-aarch64.sh
+
+    ./cmake-3.31.9-linux-aarch64.sh
+    # and install into subdir, (say 'y' when prompted)
+
+Get source code
+
+    git clone --revision=refs/tags/21.3-Omega https://github.com/xbmc/xbmc.git
+
+    # version 21.5.9, because of: https://github.com/xbmc/inputstream.adaptive/issues/1865#issuecomment-3418211625
+    git clone --revision=refs/tags/21.5.9-Omega https://github.com/xbmc/inputstream.adaptive.git
+
+Build (using the installed cmake)
+
+    mkdir inputstream.adaptive/build/
+    cd inputstream.adaptive/build/
+    ../../cmake-3.31.9-linux-aarch64/bin/cmake -DADDONS_TO_BUILD=inputstream.adaptive -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../xbmc/addons -DPACKAGE_ZIP=1 ../../xbmc/cmake/addons
+    make
+
+Package
+
+    # The build resides in the xbmc/addons DIR, so we navigate there:
+    cd ../../xbmc/addons
+
+    # ZIP the 'inputstream.adaptive' DIR and write the output to our working DIR
+    zip -r ../../inputstream.adaptive-aarch64-21.5.9.zip inputstream.adaptive
+
+    # Go back into our working DIR, which now contains the 'inputstream.adaptive-aarch64-21.5.9.zip' file.
+    cd ../..
+
+##### 20.5-3
+
+Build via pacman -> https://github.com/xbmc/inputstream.adaptive/wiki/How-to-build
 
 Try getting via ARCH extra repos
 
@@ -32,19 +81,36 @@ Try getting via ARCH extra repos
       2:  kodi-rpi-git-dev  21.x.65444.c3011d70d0-1  extra
       -> 1
 
+#### Download Inputstream Adaptive
+
+Version 21.5.17
+
+[Download](https://addons.libreelec.tv/12.0.0/ARMv8/aarch64/inputstream.adaptive/)
+
+### Widevine via Inputstreamhelper
+
+and https://github.com/emilsvennesson/script.module.inputstreamhelper/releases/tag/v0.8.4
+and download widevine via inputstreamhelper 0.8.4.
+
+InputStream Adaptive Change DRM Widevine Decrypter Path from `special://home/cdm` (old) to `/var/lib/kodi/widevine` (new).
+
+This path resulted in the error:
+`inputstream.adaptive: Initialize: Initialize: Failed to load library: /var/lib/kodi/widevine/libwidevinecdm.so: DT_RELR without GLIBC_ABI_DT_RELR dependency`
+
+### Widevine-Installer
+
 Via [Widewine installer](https://github.com/AsahiLinux/widevine-installer)
 
 **Widewine for aarch64 requires glibc >= 2.36**
 
 https://archlinuxarm.org/packages/aarch64/glibc
 
-    # higher version of GLIBC
+    # [MAYBE] needs a higher version of GLIBC, than available via pacman:
     curl -o glibc-X.XX-X-aarch64.pkg.tar.xz http://mirror.archlinuxarm.org/aarch64/core/glibc-X.XX-X-aarch64.pkg.tar.xz
     sudo pacman -U glibc-X.XX-X-aarch64.pkg.tar.xz
 
     # DEP of widevine installer
     sudo pacman -S squashfs-tools
-
 
     git clone https://github.com/AsahiLinux/widevine-installer
     cd widevine-installer

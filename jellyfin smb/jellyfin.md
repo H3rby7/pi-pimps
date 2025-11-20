@@ -99,6 +99,13 @@ Visit Web-UI for install wizard.
     pamac build jellyfin-server-bin
     systemctl restart jellyfin
 
+## Playlist Handling
+
+If the media is stored on an external drive, it may not be available (for one of many reasons) to jellyfin at all times.
+Jellyfin playlists will automatically remove any missing media from themselves.
+
+One approach to handle this behaviour is to edit 'tasks', namely the triggers fo 'clean up collections and playlists'. Click on that task and remove the 'on startup' trigger. May help. Or not.
+
 # Cheatsheets
 
     journalctl -u jellyfin

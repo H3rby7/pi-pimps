@@ -56,6 +56,8 @@ For AUR (user repository)
 
 # Net Utils
 
+on manjaro ain't no `netstat` - use these instead:
+
     netstat --> ss
     netstat -r --> ip route
     netstat -i --> ip -s link
@@ -63,3 +65,5 @@ For AUR (user repository)
 
     ss -tuna
     sudo ss -tulpn | grep :5353
+
+    sudo lsof -i -P -n | grep -E ':80|:8080'

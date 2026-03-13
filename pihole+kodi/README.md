@@ -4,33 +4,31 @@
 
     journalctl -u pihole-FTL
 
-One-Step automated install will not work. -> https://wiki.archlinux.org/title/Pi-hole
+One-Step automated install will not work, because manjaro (pacman) is not a supported package manger.
+-> https://wiki.archlinux.org/title/Pi-hole
 
-A Arch User Repository (AUR) version is available. Generic AUR install guide -> https://wiki.archlinux.org/title/Arch_User_Repository
+An "Arch User Repository" (AUR) version is available.
+Generic AUR install guide -> https://wiki.archlinux.org/title/Arch_User_Repository
+
+Install some dependencies:
 
     sudo pacman -S base-devel openbsd-netcat
 
 Install Pi-Hole FTL (AUR dependency of Pi-Hole Server)
 
-(possibly easier with pamac, especially when having added the [arch4edu repo](../README.md#arch4edu-pacman-repository)
+(Easy with pamac, especially when having added the [arch4edu repo](../README.md#arch4edu-pacman-repository)
 
     cd ~
-    git clone https://aur.archlinux.org/pi-hole-ftl.git
-    cd pi-hole-ftl
-    # Inspect PKGBUILD
-    less PKGBUILD
-    # Run makepkg into an error to see the list of missing packages
-    makepkg
-    # Either install them manually or re-run with -sr
-    makepkg -sr
-    # Install the package
-    sudo pacman -U pi-hole-ftl-X.XX.X-X-aarch64.pkg.tar.zst
-    sudo systemctl restart pihole-FTL.service
+    pamac build pi-hole-ftl pi-hole-web
 
-[pihole-FTL.service likely fails](https://wiki.archlinux.org/title/Pi-hole#Failed_to_start_Pi-hole_FTLDNS_engine):
+Create 
+
+    sudo systemctl restart pihole-FTL
+
+[pihole-FTL likely fails](https://wiki.archlinux.org/title/Pi-hole#Failed_to_start_Pi-hole_FTLDNS_engine):
 
     # check
-    systemctl status pihole-FTL.service
+    systemctl status pihole-FTL
     # read logs
     journalctl -u pihole-FTL
     # If error is "port 53 is occupied"
@@ -40,63 +38,27 @@ Install Pi-Hole FTL (AUR dependency of Pi-Hole Server)
     [Resolve]
     DNSStubListener=no
 
-    sudo systemctl restart systemd-resolved.service pihole-FTL.service
-
-
-Install Pi-Hole Server
-
-(possibly easier with pamac)
-
-    cd ~
-    git clone https://aur.archlinux.org/pi-hole-server.git
-    cd pi-hole-server
-    # Inspect PKGBUILD
-    less PKGBUILD
-    # Run makepkg into an error to see the list of missing packages
-    makepkg
-    # Either install them manually or re-run with -sr
-    makepkg -sr
-    # Install the package
-    sudo pacman -U pi-hole-server-X.XX.X-X-any.pkg.tar.zst
+    sudo systemctl restart systemd-resolved.service pihole-FTL
 
 ### PiHole Configuration
 
-    sudo pacman -S php-sqlite lighttpd php-cgi
+By default the admin webserver uses port 8080, however we want that port to be available for the kodi webserver.
+So we switch pihole webserver port to 9000
 
-Enable some extensions (all around 1k lines into the file)
+    sudo vim /etc/pihole/pihole.toml
 
-    vim /etc/php/php.ini
+```toml
+[webserver]
+  port = "9000,[::]:9000"
+```
 
-    [...]
-    extension=pdo_sqlite
-    [...]
-    extension=sockets
-    [...]
-    extension=sqlite3
-    [...]
-
-Limit php file access
-
-    vim /etc/php/php.ini
-
-    [...]
-    open_basedir = /srv/http/pihole:/run/pihole-ftl/pihole-FTL.port:/run/log/pihole/pihole.log:/run/log/pihole-ftl/pihole-FTL.log:/etc/pihole:/etc/hosts:/etc/hostname:/etc/dnsmasq.d/02-pihole-dhcp.conf:/etc/dnsmasq.d/03-pihole-wildcard.conf:/etc/dnsmasq.d/04-pihole-static-dhcp.conf:/var/log/lighttpd/error-pihole.log:/proc/loadavg:/proc/meminfo:/proc/cpuinfo:/sys/class/thermal/thermal_zone0/temp:/tmp
-    [...]
-
-Copy lighttpd config of pi-hole (may need to adjust later to support kodi WEB)
-
-    cp /usr/share/pihole/configs/lighttpd.example.conf /etc/lighttpd/lighttpd.conf
-
-Enable and start lighttpd service
-
-    sudo systemctl enable lighttpd.service
-    sudo systemctl start lighttpd.service
+    sudo systemctl restart pihole-FTL
 
 should now be able to CURL the page.
 
-    curl localhost/admin/
-    curl http://raspberrypi/admin/
-    curl http://XXX.XXX.XXX:80/admin/
+    curl localhost:9000/admin/
+    curl http://raspberrypi:9000/admin/
+    curl http://XXX.XXX.XXX:9000/admin/
 
 Update hosts file
 
